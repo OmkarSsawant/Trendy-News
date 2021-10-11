@@ -1,7 +1,6 @@
-package com.visionDev.trendynews.api
+package com.visionDev.trendynews.api.news
 
 import com.visionDev.trendynews.BuildConfig.NEWS_API_KEY_MAIN
-import com.visionDev.trendynews.api.ApiResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
