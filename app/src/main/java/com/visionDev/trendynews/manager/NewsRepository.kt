@@ -12,5 +12,10 @@ constructor(
     private val newsApiMediator: NewsApiMediator
 ) {
 
+    fun loadMore() = newsApiMediator.loadMore()
+
+    val lastIndex
+        get() = newsApiMediator.lastPageIndexCache
+
 
 }
