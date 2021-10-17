@@ -11,5 +11,5 @@ interface ArticleUIState {
     val imageUrl:String?
     val pubDate:String
     val content:String?
-    val authors:List<String>?
+    val authors:String?
 }

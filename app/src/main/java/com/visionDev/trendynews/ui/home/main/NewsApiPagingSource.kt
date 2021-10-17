@@ -7,13 +7,13 @@ import com.visionDev.trendynews.common.ArticleUIState
 import com.visionDev.trendynews.utils.MEDIA_STACK_API_START_OFFSET
 
 class NewsApiPagingSource(
-    val date: String,
-    val keywords: String,
-    val languages: String,
-    val categories: String,
-    val countries: String,
-    val sort: String = MediaStackApi.Sort.PUB_DESC.str_type,
-    val newsPublishers: String? = null,
+    private val date: String,
+    private val keywords: String,
+    private val languages: String,
+    private val categories: String,
+    private val countries: String,
+    private val sort: String = MediaStackApi.Sort.PUB_DESC.str_type,
+    private val newsPublishers: String? = null,
     private val mediaStackApi: MediaStackApi
 ) : PagingSource<Int, ArticleUIState>() {
 
@@ -30,13 +30,16 @@ class NewsApiPagingSource(
                languages,
                categories,
                countries,
-               offset,
+               mOffset,
                sort,
                newsPublishers
            )
 
-
-           LoadResult.Page()
+           LoadResult.Page(
+               data = res.data,
+              prevKey = (mOffset- MEDIA_STACK_API_START_OFFSET).coerceAtLeast(0),
+              nextKey = res.pagination.offset
+           )
        }catch (e:Exception){
            LoadResult.Error(e)
        }
