@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:id="@+id/content"
     android:layout_height="match_parent">
 <com.google.android.material.tabs.TabLayout
     android:elevation="35dp"
+    android:layout_marginTop="?actionBarSize"
+    android:id="@+id/category_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <com.google.android.material.tabs.TabItem
@@ -23,8 +27,10 @@
 </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/news_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/tile_news"
        />
 </LinearLayout>
+</layout>

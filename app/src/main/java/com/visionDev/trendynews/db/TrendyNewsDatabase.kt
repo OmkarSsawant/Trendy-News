@@ -4,14 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.visionDev.trendynews.api.model.NewsArticle
+import androidx.room.TypeConverters
 import com.visionDev.trendynews.db.saved_articles.SavedArticlesDAO
+import com.visionDev.trendynews.db.saved_articles.SavedNewsArticle
 import com.visionDev.trendynews.db.today_articles.ArticlesTodayDAO
+import com.visionDev.trendynews.db.today_articles.TodayNewsArticle
 
 @Database(
     version = 1,
-    entities = [NewsArticle::class]
+    entities = [SavedNewsArticle::class,TodayNewsArticle::class]
 )
+@TypeConverters(TrendyNewsTypeConvertors::class)
 abstract class TrendyNewsDatabase : RoomDatabase() {
    abstract fun articlesTodayDAO():ArticlesTodayDAO
     abstract fun articlesSavedDAO():SavedArticlesDAO
