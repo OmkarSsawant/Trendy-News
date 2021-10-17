@@ -2,7 +2,11 @@ package com.visionDev.trendynews
 
 import android.util.JsonReader
 import com.google.gson.Gson
+import com.visionDev.trendynews.api.news.MediaStackApi
 import com.visionDev.trendynews.api.trendynews.TrendyNewsService
+import com.visionDev.trendynews.utils.MEDIA_STACK_API_ENDPOINT
+import kotlinx.coroutines.runBlocking
+import okhttp3.OkHttpClient
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -44,14 +48,30 @@ class ExampleUnitTest {
     }
 
 
-    @Test fun rawApiTest(){
-        val url = URL("https://api.nytimes.com/svc/search/v2/articlesearch.json?q=election&api-key=${BuildConfig.NEWS_API_KEY_MAIN}")
-        val con = url.openConnection()
-        con.connect()
-        url.openStream()
-            ?.let {
-                val json = JsonReader(InputStreamReader(it))
-                it.close()
-            }
+    @Test fun rawApiTest() {
+
+        val rf2 = Retrofit.Builder()
+            .baseUrl(MEDIA_STACK_API_ENDPOINT)
+            .client(OkHttpClient().newBuilder()
+                .addInterceptor {
+                println(it.request().url())
+                    it.proceed(it.request())
+                }.build())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val tNapi = rf2.create(MediaStackApi::class.java)
+        runBlocking {
+          val res  =  tNapi.fetchArticles(
+                null,
+                "en",
+                "technology",
+                null,
+                keywords = null,
+                0,
+                MediaStackApi.Sort.PUB_DESC.str_type,
+            )
+
+            println(res.data)
+        }
     }
 }

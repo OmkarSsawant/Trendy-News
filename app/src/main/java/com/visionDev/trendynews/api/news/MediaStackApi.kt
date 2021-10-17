@@ -8,11 +8,11 @@ import retrofit2.http.Query
 interface MediaStackApi {
         @GET("news")
         suspend fun fetchArticles(
-            @Query("date") date:String,
-            @Query("keywords") keywords:String,
+            @Query("date") date:String?=null,
             @Query("languages") languages:String,
-            @Query("categories") categories:String,
-            @Query("countries") countries:String,
+            @Query("categories") categories:String?=null,
+            @Query("countries") countries:String?=null,
+            @Query("keywords") keywords:String?=null,
             /*
             The Pagination offset value is `returned in response`
             * */

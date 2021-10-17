@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.visionDev.trendynews.api.news.MediaStackApi
+import com.visionDev.trendynews.api.news.model.NewsRequestInfo
 import com.visionDev.trendynews.databinding.FragmentHomeBinding
 import com.visionDev.trendynews.ui.home.adapters.NewsListAdapter
 import com.visionDev.trendynews.ui.home.main.NewsRepository
@@ -21,23 +22,24 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class HomeFragment : Fragment() {
 
-    lateinit var vb:FragmentHomeBinding
-    private val newsViewModel:NewsViewModel by lazy {
+    lateinit var vb: FragmentHomeBinding
+    private val newsViewModel: NewsViewModel by lazy {
         val newsDataApiService = Retrofit.Builder()
             .baseUrl(MEDIA_STACK_API_ENDPOINT)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(MediaStackApi::class.java)
         NewsViewModel(requireActivity().application, NewsRepository(newsDataApiService))
-    /* ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
-            .create(NewsViewModel::class.java)*/
-     }
+        /* ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+                .create(NewsViewModel::class.java)*/
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-       vb =  FragmentHomeBinding.inflate(inflater,container,false)
+        vb = FragmentHomeBinding.inflate(inflater, container, false)
         return vb.root
     }
 
@@ -49,7 +51,16 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launch {
 
-            newsViewModel.newsArticles("technology")
+            newsViewModel.newsArticles(
+                NewsRequestInfo(
+                    null,
+                    null,
+                    "en",
+                    "technology",
+                    null,
+                    MediaStackApi.Sort.PUB_DESC,
+                )
+            )
                 .collectLatest {
                     Log.i(TAG, "onViewCreated: $it")
                     newsListAdapter.submitData(it)
@@ -58,7 +69,7 @@ class HomeFragment : Fragment() {
 
     }
 
-    companion object{
+    companion object {
         private const val TAG = "HomeFragment"
     }
 }

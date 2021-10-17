@@ -16,7 +16,7 @@ data class SavedNewsArticle(
     override val videoUrl:String?=null,
     override val pubDate:String,
     override val content:String?=null,
-    override val authors:List<String>?=null,
+    override val authors:String?=null,
 ):ArticleUIState{
 
     fun isLatest():Boolean = TODO("Compare with todays Date")
