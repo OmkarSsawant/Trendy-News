@@ -23,6 +23,13 @@ class NewsApiRemoteMediator(
         loadType: LoadType,
         state: PagingState<Int, TodayNewsArticle>
     ): MediatorResult {
+
+        /*
+        * For Testing purpose and to prevent requests
+        * the articles from cached db will be used
+        * */
+        return MediatorResult.Success(endOfPaginationReached = true)
+
         when (loadType) {
             /*No Fetch Previous page required*/
             LoadType.PREPEND -> MediatorResult.Success(endOfPaginationReached = true)

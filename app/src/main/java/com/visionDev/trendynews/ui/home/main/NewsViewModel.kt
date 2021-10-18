@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.Flow
  * i  : Observe todays_articles table and feed in recyclerView
  * ii : manage user request when user reach end of page
  * Get Selected Categories in shared prefs
- * Initial Req http://api.mediastack.com/v1/news?date=2021-10-18&languages=en&sort=popularity&access_key=e7abe78a0ca62726103695c1c0e992fe
+ * Initial Req Request At : http://api.mediastack.com/v1/news?date=2021-09-18&languages=en&categories=technology%2Centertainment%2Cpolitics&offset=0&sort=popularity&limit=100&access_key=e7abe78a0ca62726103695c1c0e992fe
  * */
 class NewsViewModel
 constructor(application: Application, newsRepository: NewsRepository) :
