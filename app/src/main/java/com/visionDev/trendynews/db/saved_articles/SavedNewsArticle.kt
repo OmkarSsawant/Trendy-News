@@ -9,7 +9,7 @@ import retrofit2.http.Field
 @Entity(tableName = "saved_news_articles")
 data class SavedNewsArticle(
     @PrimaryKey
-    val id:Long,
+    override val id:Long?,
     override val title:String,
     override val link:String,
     override val imageUrl:String?=null,

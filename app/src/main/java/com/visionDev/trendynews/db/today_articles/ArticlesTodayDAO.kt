@@ -12,8 +12,11 @@ import androidx.room.Query
 interface ArticlesTodayDAO {
 
     @Query("SELECT * FROM articles_today WHERE :and_or_Query")
-     fun getArticlesOf(and_or_Query:String):PagingSource<Long,TodayNewsArticle>
+     fun getArticlesOf(and_or_Query:String):PagingSource<Int,TodayNewsArticle>
 
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveArticles(articles:List<TodayNewsArticle>)
+
+    @Query("SELECT * FROM articles_today WHERE id = :articleId LIMIT 1")
+    suspend fun getArticleById(articleId:Long):TodayNewsArticle
 }

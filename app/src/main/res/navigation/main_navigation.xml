@@ -12,7 +12,14 @@
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_articleDetailFragment"
-            app:destination="@id/articleDetailFragment" />
+
+            app:destination="@id/articleDetailFragment" >
+            <argument
+                android:name="article_id"
+                app:argType="long"
+                android:defaultValue="-1L"
+                />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/articleDetailFragment"
@@ -22,6 +29,7 @@
         <argument
             android:name="article_id"
             app:argType="long"
-            android:defaultValue="-1L" />
+            android:defaultValue="-1L"
+            />
     </fragment>
 </navigation>

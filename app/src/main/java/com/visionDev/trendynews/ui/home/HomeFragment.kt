@@ -52,26 +52,10 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launch {
 
-            var req = 0
-            newsViewModel.newsArticles(
-                NewsRequestInfo(
-                    null,
-                    null,
-                    "en",
-                    "technology",
-                    null,
-                    MediaStackApi.Sort.PUB_DESC,
-                )
-            )
+            newsViewModel.todayNewsArticles
                 .collectLatest {
                     Log.i(TAG, "onViewCreated: $it")
-                    req++
-                    //OnClick Of LoadMore Submit Data
                     newsListAdapter.submitData(it)
-                    requireActivity().runOnUiThread {
-                        Snackbar.make(requireView(), "Made Request $req", Snackbar.LENGTH_SHORT)
-
-                    }
                 }
         }
 

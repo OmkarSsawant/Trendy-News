@@ -3,7 +3,7 @@ package com.visionDev.trendynews.api.news.model
 import com.visionDev.trendynews.api.news.MediaStackApi
 
 class NewsRequestInfo(
-     val date: String?,
+     var date: String?,
      val keywords: String?,
      val languages: String,
      val categories: String?,

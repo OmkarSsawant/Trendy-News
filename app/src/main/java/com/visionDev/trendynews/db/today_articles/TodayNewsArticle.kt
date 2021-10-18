@@ -8,7 +8,7 @@ import com.visionDev.trendynews.common.ArticleUIState
 @Entity(tableName = "articles_today")
 data class TodayNewsArticle(
     @PrimaryKey(autoGenerate = true)
-    val id:Long?=null ,
+    override val id:Long?=null,
     override val title:String,
     override val link:String,
     val category: String?=null,

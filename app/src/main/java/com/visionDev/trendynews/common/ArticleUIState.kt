@@ -6,6 +6,7 @@ import retrofit2.http.Field
 
 
 interface ArticleUIState {
+    val id:Long?
     val title:String
     val link:String
     val videoUrl:String?

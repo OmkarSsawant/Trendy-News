@@ -14,7 +14,7 @@ class NewsApiRemoteMediator(
     private val newsRequestInfo: NewsRequestInfo,
     private val mediaStackApi: MediaStackApi,
     private val todayDAO: ArticlesTodayDAO
-) : RemoteMediator<Long, ArticleUIState>() {
+) : RemoteMediator<Int, ArticleUIState>() {
 
 
     init {
@@ -25,7 +25,7 @@ class NewsApiRemoteMediator(
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Long, ArticleUIState>
+        state: PagingState<Int, ArticleUIState>
     ): MediatorResult  = try {
         val res  = with(newsRequestInfo){
             mediaStackApi.fetchArticles(

@@ -43,8 +43,8 @@ class ExampleUnitTest {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val tNapi = rf2.create(TrendyNewsService::class.java)
-        val res = tNapi.getImages(listOf("https://timesofindia.indiatimes.com/india/chhattisgarh-1-dead-as-vehicle-ploughs-into-religious-procession/articleshow/87041878.cms"))
-        println(res)
+//        val res = tNapi.getImages(listOf("https://timesofindia.indiatimes.com/india/chhattisgarh-1-dead-as-vehicle-ploughs-into-religious-procession/articleshow/87041878.cms"))
+//        println(res)
     }
 
 

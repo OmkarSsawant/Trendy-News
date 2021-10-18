@@ -2,11 +2,15 @@ package com.visionDev.trendynews.ui.home.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.visionDev.trendynews.R
 import com.visionDev.trendynews.common.ArticleUIState
 import com.visionDev.trendynews.databinding.TileNewsBinding
+import com.visionDev.trendynews.ui.home.ArticleDetailFragmentArgs
+import com.visionDev.trendynews.ui.home.HomeFragmentDirections
 
 class NewsListAdapter :
     PagingDataAdapter<ArticleUIState, NewsListAdapter.ArticleViewHolder>(ARTICLE_DIFF_TOOL) {
@@ -20,14 +24,25 @@ class NewsListAdapter :
         )
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        getItem(position).let {
+        getItem(position)?.let {
             holder.vb.article = it
             holder.vb.invalidateAll()
+            holder.vb.root.setOnClickListener {v->
+                val navigator = v.findNavController()
+                navigator.navigate(
+                    R.id.action_homeFragment_to_articleDetailFragment,
+                    it.id?.let { it1 ->
+                        ArticleDetailFragmentArgs.Builder()
+                            .setArticleId(it1)
+                            .build().toBundle()
+                    }
+                )
+            }
         }
     }
 
 
-    inner class ArticleViewHolder( val vb: TileNewsBinding) : RecyclerView.ViewHolder(vb.tileRoot)
+    inner class ArticleViewHolder(val vb: TileNewsBinding) : RecyclerView.ViewHolder(vb.tileRoot)
     companion object {
         val ARTICLE_DIFF_TOOL = object : DiffUtil.ItemCallback<ArticleUIState>() {
             override fun areItemsTheSame(

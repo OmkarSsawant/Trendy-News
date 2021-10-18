@@ -3,6 +3,7 @@ package com.visionDev.trendynews.api.news.model
 import com.visionDev.trendynews.common.ArticleUIState
 
 data class NewsArticle(
+    override val id:Long?,
     val author: String,
     val category: String,
     val country: String,
