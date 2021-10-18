@@ -2,4 +2,5 @@
     <string name="app_name">Trendy News</string>
     <string name="drawer_open">drawer_open</string>
     <string name="drawer_close">drawer_close</string>
+    <string name="no_desc"> This News Has No Description</string>
 </resources>

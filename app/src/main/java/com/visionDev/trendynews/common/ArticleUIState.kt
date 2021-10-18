@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 import retrofit2.http.Field
 
 
+
 interface ArticleUIState {
     val title:String
     val link:String

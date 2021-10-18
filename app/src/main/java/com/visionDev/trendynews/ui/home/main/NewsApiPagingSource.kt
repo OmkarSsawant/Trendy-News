@@ -6,7 +6,6 @@ import androidx.paging.PagingState
 import com.visionDev.trendynews.api.news.MediaStackApi
 import com.visionDev.trendynews.api.news.model.NewsRequestInfo
 import com.visionDev.trendynews.common.ArticleUIState
-import com.visionDev.trendynews.utils.MEDIA_STACK_API_START_OFFSET
 import com.visionDev.trendynews.utils.MEDIA_STACK_PER_REQ
 
 class NewsApiPagingSource(
@@ -17,7 +16,7 @@ class NewsApiPagingSource(
         var offset:Int=0
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleUIState> {
-        val mOffset = params.key ?: MEDIA_STACK_API_START_OFFSET
+
 
        return try {
 
@@ -34,6 +33,7 @@ class NewsApiPagingSource(
                )
            }
            offset += MEDIA_STACK_PER_REQ
+
            Log.i(TAG, "load: ${res.data}")
            LoadResult.Page(
                data = res.data,
