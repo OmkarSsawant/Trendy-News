@@ -18,5 +18,5 @@ interface ArticlesTodayDAO {
     suspend fun saveArticles(articles:List<TodayNewsArticle>)
 
     @Query("SELECT * FROM articles_today WHERE id = :articleId LIMIT 1")
-    suspend fun getArticleById(articleId:Long):TodayNewsArticle
+    suspend fun getArticleById(articleId:Long):TodayNewsArticle?
 }

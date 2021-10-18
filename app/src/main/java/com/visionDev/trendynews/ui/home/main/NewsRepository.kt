@@ -14,6 +14,9 @@ class NewsRepository
     private val articlesTodayDAO: ArticlesTodayDAO
 ) {
 
+
+   suspend fun getArticle(id:Long):ArticleUIState? = articlesTodayDAO.getArticleById(id)
+
     fun getNewsApiNetworkPagingSource(
         newsRequestInfo: NewsRequestInfo
     ):NewsApiPagingSource =  NewsApiPagingSource(newsRequestInfo,mediaStackApi)

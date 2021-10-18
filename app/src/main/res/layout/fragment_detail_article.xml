@@ -51,7 +51,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Sample Title Of Article is Here And Res"
+                android:text="@{article.title}"
                 android:textColor="@color/black"
                 android:textSize="32sp"
                 android:transitionName="article title transition"

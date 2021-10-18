@@ -30,6 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class HomeFragment : Fragment() {
 
     lateinit var vb: FragmentHomeBinding
+    //TODO: VIew Model Injection
     private val newsViewModel: NewsViewModel by lazy {
         val newsDataApiService = Retrofit.Builder()
             .baseUrl(MEDIA_STACK_API_ENDPOINT)

@@ -19,11 +19,11 @@ data class NewsArticle(
         get() = url
     override val videoUrl: String?
         get() = null
-    override val imageUrl: String?
+    override val imageUrl: String
         get() = image
     override val pubDate: String
         get() = published_at
-    override val content: String?
+    override val content: String
         get() = description
     override val authors: String
         get() = author

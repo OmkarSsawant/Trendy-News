@@ -7,6 +7,7 @@ import android.graphics.drawable.ScaleDrawable
 import android.net.Uri
 import android.text.format.DateUtils
 import android.view.Gravity
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
@@ -78,9 +79,12 @@ fun Button.shouldShow(article: ArticleUIState) {
 }
 
 @BindingAdapter("web_url")
-fun Button.openUrl(url:String){
+fun Button.openUrl(url:String?){
+    if(url!=null)
     setOnClickListener {
         val browser:Intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         this.context.startActivity(Intent.createChooser(browser,"Show Article with"))
     }
+    else
+       visibility = View.GONE
 }

@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrendyNews">
         <activity android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
