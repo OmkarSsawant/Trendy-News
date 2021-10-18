@@ -2,11 +2,14 @@ package com.visionDev.trendynews.ui.home.main
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.visionDev.trendynews.api.news.MediaStackApi
 import com.visionDev.trendynews.common.ArticleUIState
 import com.visionDev.trendynews.db.SharedPrefsManager
+import com.visionDev.trendynews.db.today_articles.TodayNewsArticle
 import com.visionDev.trendynews.utils.MEDIA_STACK_PER_REQ
 import com.visionDev.trendynews.utils.getTodayDate
 import kotlinx.coroutines.flow.Flow
@@ -22,22 +25,21 @@ class NewsViewModel
 constructor(application: Application, newsRepository: NewsRepository) :
     AndroidViewModel(application) {
 
-    val prefsManager: SharedPrefsManager = SharedPrefsManager(application)
+    private val prefsManager: SharedPrefsManager = SharedPrefsManager(application)
 
-    val todayNewsArticles: Flow<PagingData<ArticleUIState>> =
+    @ExperimentalPagingApi
+    val todayNewsArticles: Flow<PagingData<TodayNewsArticle>> =
         Pager(
             config = PagingConfig(
                 MEDIA_STACK_PER_REQ,
                 enablePlaceholders = false,
                 prefetchDistance = 3
             ),
-            pagingSourceFactory = {
-                newsRepository.getNewsApiPagingSource(
-                    prefsManager.buildFromPreferredNewsRequestInfo {
+            remoteMediator = newsRepository.getNewsApiRemoteMediator(prefsManager.buildFromPreferredNewsRequestInfo {
                 date = getTodayDate()
-                    })
-            },
-            initialKey = 1
+                sort  = MediaStackApi.Sort.POPULARITY
+            }),
+            pagingSourceFactory = { newsRepository.getNewsApiRMPagingSource() }
         ).flow
 
 

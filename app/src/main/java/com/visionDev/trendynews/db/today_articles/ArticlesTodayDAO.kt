@@ -11,8 +11,8 @@ import androidx.room.Query
 @Dao
 interface ArticlesTodayDAO {
 
-    @Query("SELECT * FROM articles_today WHERE :and_or_Query")
-     fun getArticlesOf(and_or_Query:String):PagingSource<Int,TodayNewsArticle>
+    @Query("SELECT * FROM articles_today ORDER BY pubDate")
+     fun getArticles():PagingSource<Int,TodayNewsArticle>
 
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveArticles(articles:List<TodayNewsArticle>)

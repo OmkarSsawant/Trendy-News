@@ -1,6 +1,5 @@
 package com.visionDev.trendynews.utils
 
-const val MEDIA_STACK_API_START = 100
 const val MEDIA_STACK_PER_REQ=100
 const val MEDIA_STACK_API_ENDPOINT = "http://api.mediastack.com/v1/"
 const val NEWS_CATEGORIES = "trendy_news.categories"
