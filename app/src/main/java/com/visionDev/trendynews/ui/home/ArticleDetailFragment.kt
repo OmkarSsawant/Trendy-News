@@ -62,6 +62,7 @@ class ArticleDetailFragment : Fragment() {
 
         Log.i("TAG", "onViewCreated: ${args.articleId}")
         vb.articleDetailToolabar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+
         vb.articleDetailToolabar.setNavigationOnClickListener {
             it.findNavController().navigateUp()
         }
@@ -72,8 +73,9 @@ class ArticleDetailFragment : Fragment() {
         vb.collapsingToolbarLayout.apply {
             title = it.title
             expandedTitleGravity = Gravity.START or Gravity.BOTTOM
-            setContentScrimColor(Color.WHITE)
+            setContentScrimColor(Color.BLACK)
             setExpandedTitleColor(Color.TRANSPARENT)
+
         }
 
             requireActivity().runOnUiThread {
@@ -86,20 +88,12 @@ class ArticleDetailFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            requireView().windowInsetsController?.show(WindowInsets.Type.statusBars())
-        }else{
-            requireView().systemUiVisibility = 0
-        }
+        requireActivity().window.decorView.systemUiVisibility = 0
     }
 
     override fun onResume() {
         super.onResume()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            vb.root.windowInsetsController?.hide(WindowInsets.Type.statusBars())
-        }else{
-            requireView().systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_IMMERSIVE
-        }
+        requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_IMMERSIVE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
     }
     override fun onDestroyView() {
         (requireActivity() as AppCompatActivity).supportActionBar?.show()
