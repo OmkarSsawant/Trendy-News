@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="loadState"
+            type="androidx.paging.LoadState" />
+        <import type="com.visionDev.trendynews.utils.UtilsKt"/>
+        <import type="androidx.paging.LoadState"/>
+
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="wrap_content">
+<Button
+    android:id="@+id/retry"
+    android:backgroundTint="@android:color/holo_blue_dark"
+    android:text="retry"
+    android:visibility="@{UtilsKt.toRetryVisibility(loadState)}"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:visibility="@{UtilsKt.toLoadingVisibility(loadState)}"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+</LinearLayout>
+</layout>

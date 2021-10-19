@@ -17,6 +17,7 @@
     <ImageView
         android:id="@+id/news_thumbnail"
         img_url="@{article.imageUrl}"
+        android:transitionName="article_image_transition"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     <View
@@ -32,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
         android:layout_margin="7dp"
+        android:transitionName="article_title_transition"
         android:fontFamily="@font/amaranth_bold"
         android:includeFontPadding="true"
         android:padding="4dp"

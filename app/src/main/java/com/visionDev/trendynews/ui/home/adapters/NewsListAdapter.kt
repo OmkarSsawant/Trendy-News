@@ -2,7 +2,11 @@ package com.visionDev.trendynews.ui.home.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.NavOptions
+import androidx.navigation.NavOptionsBuilder
+import androidx.navigation.Navigator
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +33,10 @@ class NewsListAdapter :
             holder.vb.invalidateAll()
             holder.vb.root.setOnClickListener {v->
                 val navigator = v.findNavController()
+                val navExtras = FragmentNavigatorExtras(
+                    holder.vb.newsTitle to "article_title_transition",
+                    holder.vb.newsThumbnail to "article_image_transition"
+                )
                 navigator.navigate(
                     R.id.action_homeFragment_to_articleDetailFragment,
                     it.id?.let { it1 ->
@@ -36,6 +44,9 @@ class NewsListAdapter :
                             .setArticleId(it1)
                             .build().toBundle()
                     }
+                ,
+                 null,
+                    navExtras
                 )
             }
         }

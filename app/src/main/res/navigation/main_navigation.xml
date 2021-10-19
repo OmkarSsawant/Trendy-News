@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/articleDetailFragment"
-        tools:layout="@layout/fragment_detail_article"
+        tools:layout="@layout/fragment_article_detail"
         android:name="com.visionDev.trendynews.ui.home.ArticleDetailFragment"
         android:label="ArticleDetailFragment" >
         <argument
@@ -31,5 +31,11 @@
             app:argType="long"
             android:defaultValue="-1L"
             />
+
+        <action
+            android:id="@+id/action_articleDetailFragment_to_homeFragment3"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>

@@ -33,35 +33,8 @@ fun ImageView.setUrlImage(imgUrl: String?) {
     if (imgUrl != null) {
         Glide.with(this)
             .load(imgUrl)
-            .placeholder(R.drawable.newspaper)
+            .placeholder(null)
             .apply(RequestOptions.overrideOf(width, height))
-            .listener(object : RequestListener<Drawable> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    isFirstResource: Boolean
-                ): Boolean = false
-
-                override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                       resource?.mutate()?.let {d->
-                            background = ScaleDrawable(
-                                d,
-                                Gravity.CENTER,
-                                0.4f,
-                                0.2f
-                            )
-                                .drawable
-                        }
-                    return false
-                }
-            })
             .into(this)
 
 
@@ -88,3 +61,33 @@ fun Button.openUrl(url:String?){
     else
        visibility = View.GONE
 }
+
+/*
+*  .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean = false
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                       resource?.mutate()?.let {d->
+                            background = ScaleDrawable(
+                                d,
+                                Gravity.CENTER,
+                                0.4f,
+                                0.2f
+                            )
+                                .drawable
+                        }
+                    return false
+                }
+            })
+* */

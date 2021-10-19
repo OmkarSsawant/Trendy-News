@@ -11,7 +11,7 @@ import androidx.room.Query
 @Dao
 interface ArticlesTodayDAO {
 
-    @Query("SELECT * FROM articles_today ORDER BY pubDate")
+    @Query("SELECT * FROM articles_today ORDER BY CASE WHEN imageUrl IS NULL THEN 1 ELSE 0 END , imageUrl")
      fun getArticles():PagingSource<Int,TodayNewsArticle>
 
     @Insert (onConflict = OnConflictStrategy.REPLACE)

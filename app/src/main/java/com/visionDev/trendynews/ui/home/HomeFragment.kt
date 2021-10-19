@@ -18,6 +18,7 @@ import com.visionDev.trendynews.common.ArticleUIState
 import com.visionDev.trendynews.databinding.FragmentHomeBinding
 import com.visionDev.trendynews.db.TrendyNewsDatabase
 import com.visionDev.trendynews.ui.home.adapters.NewsListAdapter
+import com.visionDev.trendynews.ui.home.adapters.NewsLoadStateAdapter
 import com.visionDev.trendynews.ui.home.main.NewsRepository
 import com.visionDev.trendynews.ui.home.main.NewsViewModel
 import com.visionDev.trendynews.utils.MEDIA_STACK_API_ENDPOINT
@@ -63,6 +64,8 @@ class HomeFragment : Fragment() {
         val newsListAdapter = NewsListAdapter()
         vb.newsList.layoutManager = LinearLayoutManager(context)
         vb.newsList.adapter = newsListAdapter
+
+        newsListAdapter.withLoadStateFooter(NewsLoadStateAdapter(newsListAdapter))
 
         lifecycleScope.launch {
 

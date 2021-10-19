@@ -2,6 +2,7 @@ package com.visionDev.trendynews
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.databinding.DataBindingUtil
@@ -37,13 +38,18 @@ class MainActivity : AppCompatActivity() {
             item
         )
 
-    override fun onSupportNavigateUp(): Boolean {
-       val navController = supportFragmentManager.findFragmentById(R.id.main_host)
+    override fun onBackPressed() {
+        val navController = supportFragmentManager.findFragmentById(R.id.main_host)
             ?.let {
                 (it as NavHostFragment)
                     .navController
             }
-        return  (navController?.navigateUp() ?: false) ||  super.onSupportNavigateUp()
+        Log.i(TAG, "onSupportNavigateUp: $navController")
+        if (navController?.navigateUp() != true) super.onBackPressed()
     }
 
+
+    companion object {
+        private const val TAG = "MainActivity"
+    }
 }
