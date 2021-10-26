@@ -36,6 +36,8 @@ fun ImageView.setUrlImage(imgUrl: String?) {
             .placeholder(null)
             .apply(RequestOptions.overrideOf(width, height))
             .into(this)
+        
+
 
 
     }

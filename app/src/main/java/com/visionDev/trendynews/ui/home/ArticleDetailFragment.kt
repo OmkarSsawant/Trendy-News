@@ -72,10 +72,11 @@ class ArticleDetailFragment : Fragment() {
 
         vb.collapsingToolbarLayout.apply {
             title = it.title
+
             expandedTitleGravity = Gravity.START or Gravity.BOTTOM
             setContentScrimColor(Color.BLACK)
             setExpandedTitleColor(Color.TRANSPARENT)
-
+            setCollapsedTitleTextColor(Color.WHITE)
         }
 
             requireActivity().runOnUiThread {
