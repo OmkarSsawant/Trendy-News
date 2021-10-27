@@ -31,29 +31,29 @@ class NewsListAdapter :
         getItem(position)?.let {
             holder.vb.article = it
             holder.vb.invalidateAll()
-            holder.vb.root.setOnClickListener {v->
-                val navigator = v.findNavController()
-                val navExtras = FragmentNavigatorExtras(
-                    holder.vb.newsTitle to "article_title_transition",
-                    holder.vb.newsThumbnail to "article_image_transition"
-                )
-                navigator.navigate(
-                    R.id.action_homeFragment_to_articleDetailFragment,
-                    it.id?.let { it1 ->
-                        ArticleDetailFragmentArgs.Builder()
-                            .setArticleId(it1)
-                            .build().toBundle()
-                    }
-                ,
-                 null,
-                    navExtras
-                )
-            }
+//            holder.vb.root.setOnClickListener {v->
+//                val navigator = v.findNavController()
+//                val navExtras = FragmentNavigatorExtras(
+//                    holder.vb.newsTitle to "article_title_transition",
+//                    holder.vb.newsThumbnail to "article_image_transition"
+//                )
+//                navigator.navigate(
+//                    R.id.action_homeFragment_to_articleDetailFragment,
+//                    it.id?.let { it1 ->
+//                        ArticleDetailFragmentArgs.Builder()
+//                            .setArticleId(it1)
+//                            .build().toBundle()
+//                    }
+//                ,
+//                 null,
+//                    navExtras
+//                )
+//            }
         }
     }
 
 
-    inner class ArticleViewHolder(val vb: TileNewsBinding) : RecyclerView.ViewHolder(vb.tileRoot)
+    inner class ArticleViewHolder(val vb: TileNewsBinding) : RecyclerView.ViewHolder(vb.root)
     companion object {
         val ARTICLE_DIFF_TOOL = object : DiffUtil.ItemCallback<ArticleUIState>() {
             override fun areItemsTheSame(

@@ -4,6 +4,7 @@ package com.visionDev.trendynews.ui.home.main
 import android.util.Log
 import androidx.paging.*
 import com.visionDev.trendynews.api.news.MediaStackApi
+import com.visionDev.trendynews.api.news.TechFashApi
 import com.visionDev.trendynews.api.news.model.NewsRequestInfo
 import com.visionDev.trendynews.common.ArticleUIState
 import com.visionDev.trendynews.db.today_articles.ArticlesTodayDAO
@@ -14,7 +15,7 @@ import com.visionDev.trendynews.utils.MEDIA_STACK_PER_REQ
 class NewsApiRemoteMediator(
     private val newsRequestInfo: NewsRequestInfo,
     private val mediaStackApi: MediaStackApi,
-    private val todayDAO: ArticlesTodayDAO
+    private val todayDAO: ArticlesTodayDAO,
 ) : RemoteMediator<Int, TodayNewsArticle>() {
 
     var offset: Int = 0
@@ -24,11 +25,11 @@ class NewsApiRemoteMediator(
         state: PagingState<Int, TodayNewsArticle>
     ): MediatorResult {
 
-        /*
-        * For Testing purpose and to prevent requests
-        * the articles from cached db will be used
-        * */
-        return MediatorResult.Success(endOfPaginationReached = true)
+//        /*
+//        * For Testing purpose and to prevent requests
+//        * the articles from cached db will be used
+//        * */
+//        return MediatorResult.Success(endOfPaginationReached = true)
 
         when (loadType) {
             /*No Fetch Previous page required*/
@@ -73,6 +74,6 @@ class NewsApiRemoteMediator(
 
 
     companion object {
-        private const val TAG = "NewsApiRemoteMediator"
+        const val TAG = "NewsApiRemoteMediator"
     }
 }

@@ -15,6 +15,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.visionDev.trendynews.R
 import com.visionDev.trendynews.api.news.MediaStackApi
+import com.visionDev.trendynews.api.news.TechFashApi
 import com.visionDev.trendynews.databinding.FragmentArticleDetailBinding
 import com.visionDev.trendynews.db.TrendyNewsDatabase
 import com.visionDev.trendynews.ui.home.main.NewsRepository
@@ -42,7 +43,12 @@ class ArticleDetailFragment : Fragment() {
             .create(MediaStackApi::class.java)
         val articlesTodayDAO = TrendyNewsDatabase.getInstance(requireContext())
             .articlesTodayDAO()
-        NewsViewModel(requireActivity().application, NewsRepository(newsDataApiService,articlesTodayDAO))
+    val techFashApiService = Retrofit.Builder()
+        .baseUrl("http://localhost:8000/api/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+        .create(TechFashApi::class.java)
+        NewsViewModel(requireActivity().application, NewsRepository(newsDataApiService,articlesTodayDAO,techFashApiService))
 
     }
 

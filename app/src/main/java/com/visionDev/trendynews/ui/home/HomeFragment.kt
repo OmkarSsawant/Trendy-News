@@ -13,6 +13,7 @@ import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.visionDev.trendynews.api.news.MediaStackApi
+import com.visionDev.trendynews.api.news.TechFashApi
 import com.visionDev.trendynews.api.news.model.NewsRequestInfo
 import com.visionDev.trendynews.common.ArticleUIState
 import com.visionDev.trendynews.databinding.FragmentHomeBinding
@@ -44,7 +45,12 @@ class HomeFragment : Fragment() {
             .create(MediaStackApi::class.java)
         val articlesTodayDAO = TrendyNewsDatabase.getInstance(requireContext())
             .articlesTodayDAO()
-        NewsViewModel(requireActivity().application, NewsRepository(newsDataApiService,articlesTodayDAO))
+        val techFashApiService = Retrofit.Builder()
+            .baseUrl("http://192.168.0.103:8000/api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(TechFashApi::class.java)
+        NewsViewModel(requireActivity().application, NewsRepository(newsDataApiService,articlesTodayDAO,techFashApiService))
         /* ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
                 .create(NewsViewModel::class.java)*/
     }
@@ -62,19 +68,27 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val newsListAdapter = NewsListAdapter()
-        vb.newsList.layoutManager = LinearLayoutManager(context)
         vb.newsList.adapter = newsListAdapter
 
         newsListAdapter.withLoadStateFooter(NewsLoadStateAdapter(newsListAdapter))
 
         lifecycleScope.launch {
+//
+//            newsViewModel.todayNewsArticles
+//                .collectLatest { pagingData ->
+//                    Log.i(TAG, "onViewCreated: $pagingData")
+//                    newsListAdapter.submitData(pagingData.map { it })
+//                }
 
-            newsViewModel.todayNewsArticles
-                .collectLatest { pagingData ->
-                    Log.i(TAG, "onViewCreated: $pagingData")
-                    newsListAdapter.submitData(pagingData.map { it })
-                }
+            newsViewModel.newsArticles.collectLatest { pagingData ->
+                Log.i(TAG, "onViewCreated: $pagingData")
+                newsListAdapter.submitData(pagingData.map { it })
+            }
+
         }
+
+
+
 
     }
 

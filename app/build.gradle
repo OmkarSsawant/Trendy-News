@@ -70,6 +70,8 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
 
 
+    implementation "androidx.palette:palette-ktx:1.0.0"
+
     def retrofit_v = '2.9.0'
     implementation "com.squareup.retrofit2:retrofit:$retrofit_v"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_v"

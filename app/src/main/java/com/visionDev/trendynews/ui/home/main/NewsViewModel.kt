@@ -43,7 +43,17 @@ constructor(application: Application, private val  newsRepository: NewsRepositor
             }),
             pagingSourceFactory = { newsRepository.getNewsApiRMPagingSource() }
         ).flow
-
+    @ExperimentalPagingApi
+    val newsArticles: Flow<PagingData<TodayNewsArticle>> =
+        Pager(
+            config = PagingConfig(
+                MEDIA_STACK_PER_REQ,
+                enablePlaceholders = false,
+                prefetchDistance = 3
+            ),
+            remoteMediator = newsRepository.techFashApiMediator("mobile"),
+            pagingSourceFactory = { newsRepository.getNewsApiRMPagingSource() }
+        ).flow
     fun getArticleById(id:Long,action:(ArticleUIState)->Unit) {
         viewModelScope.launch {
             newsRepository.getArticle(id)?.let { action(it) }
