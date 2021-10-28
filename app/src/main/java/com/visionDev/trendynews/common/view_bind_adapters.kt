@@ -31,16 +31,11 @@ import java.util.*
 @BindingAdapter("img_url")
 fun ImageView.setUrlImage(imgUrl: String?) {
 
-    val size = Point()
-    val dm = context.getSystemService(   Context.DISPLAY_SERVICE) as DisplayManager
-    dm.displays?.firstOrNull()?.getRealSize(size)
-
 
     if (imgUrl != null) {
         Glide.with(this)
             .load(imgUrl)
             .placeholder(null)
-            .apply(RequestOptions.overrideOf(size.x,size.y))
             .listener(object : RequestListener<Drawable> {
             override fun onLoadFailed(
                 e: GlideException?,
@@ -65,13 +60,12 @@ fun ImageView.setUrlImage(imgUrl: String?) {
                     resource?.let { loadedImg:Drawable->
                         Palette.Builder(loadedImg.toBitmap())
                             .generate { palette ->
+                                tag = null
                                 tag = palette
                                 Log.i("ViewBindAdapter", "onResourceReady: $palette")
                                 palette?.run {
                                     Log.i("ViewBindAdapter", "onResourceReady: ${palette.lightMutedSwatch?.let { "${it.rgb} > ${it.titleTextColor} ${it.bodyTextColor}" } }")
-                                    darkVibrantSwatch?.let {dvs->
-                                        title.setTextColor(dvs.titleTextColor)
-                                    }
+
                                     lightMutedSwatch?.bodyTextColor?.let { it3-> content.setTextColor(it3)  }
                                     lightMutedSwatch?.rgb?.let { it1 -> (content.parent as View).setBackgroundColor(it1) }
                                 }
