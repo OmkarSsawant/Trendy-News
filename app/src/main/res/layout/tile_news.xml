@@ -24,6 +24,7 @@
         <ImageView
             android:id="@+id/image"
             img_url="@{article.imageUrl}"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="@color/cardview_dark_background"
@@ -36,37 +37,41 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
+
+            android:id="@+id/article_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@{article.title,default=`My Article Title`}"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
             android:elevation="4dp"
-            android:textSize="37sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/amaranth_bold"
+            android:fontFamily="sans-serif-black"
+            android:text="@{article.title,default=`My Article Title`}"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/article_content"
             android:layout_width="match_parent"
-            android:padding="12dp"
+            android:layout_height="200dp"
             android:layout_margin="12dp"
+            android:layout_marginEnd="12dp"
+            android:padding="12dp"
             app:cardCornerRadius="12dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_height="wrap_content">
+            app:layout_constraintEnd_toStartOf="@+id/article_img_container"
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
-                android:layout_margin="16dp"
                 android:id="@+id/txt_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="16dp"
                 android:text="@{article.content,default=`Dummy Article Content`}"
-                android:textSize="27sp"
-               />
+                android:textSize="27sp" />
         </androidx.cardview.widget.CardView>
 
 

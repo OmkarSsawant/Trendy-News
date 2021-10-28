@@ -6,6 +6,11 @@ import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ScrollView
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
@@ -13,6 +18,7 @@ import androidx.paging.flatMap
 import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.visionDev.trendynews.R
 import com.visionDev.trendynews.api.news.MediaStackApi
 import com.visionDev.trendynews.api.news.TechFashApi
 import com.visionDev.trendynews.api.news.model.NewsRequestInfo
@@ -49,7 +55,7 @@ class HomeFragment : Fragment() {
         val articlesTodayDAO = TrendyNewsDatabase.getInstance(requireContext())
             .articlesTodayDAO()
         val techFashApiService = Retrofit.Builder()
-            .baseUrl("http://192.168.0.103:8000/api/")
+            .baseUrl("http://192.168.0.104:8000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(TechFashApi::class.java)
@@ -73,17 +79,11 @@ class HomeFragment : Fragment() {
         val newsListAdapter = NewsListAdapter()
         vb.newsList.adapter = newsListAdapter
 
-        vb.newsList.isUserInputEnabled = false
-        vb.newsList.setOnDragListener { v, event ->
-            if(event.action == DragEvent.ACTI   ON_DRAG_ENDED )
-            {
-                if(event.x >= requireActivity().window.decorView.width * .6)
-                    vb.newsList.setCurrentItem(min(vb.newsList.currentItem+1,newsListAdapter.itemCount),true)
-                else if(event.x <= requireActivity().window.decorView.width * .4){
-                    vb.newsList.setCurrentItem(max(vb.newsList.currentItem-1,1),true)
-                }
-            }
-            false
+
+        (requireActivity()as AppCompatActivity).apply {
+            supportActionBar?.hide()
+            window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_IMMERSIVE or View.SYSTEM_UI_FLAG_FULLSCREEN
         }
         newsListAdapter.withLoadStateFooter(NewsLoadStateAdapter(newsListAdapter))
 
@@ -107,7 +107,18 @@ class HomeFragment : Fragment() {
 
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (requireActivity()as AppCompatActivity).apply {
+            supportActionBar?.show()
+            window.decorView.systemUiVisibility = 0
+        }
+
+    }
+
     companion object {
         private const val TAG = "HomeFragment"
     }
+
+
 }
