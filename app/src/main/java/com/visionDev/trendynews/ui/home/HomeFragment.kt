@@ -2,6 +2,7 @@ package com.visionDev.trendynews.ui.home
 
 import android.os.Bundle
 import android.util.Log
+import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,8 @@ import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.math.max
+import kotlin.math.min
 
 class HomeFragment : Fragment() {
 
@@ -70,6 +73,18 @@ class HomeFragment : Fragment() {
         val newsListAdapter = NewsListAdapter()
         vb.newsList.adapter = newsListAdapter
 
+        vb.newsList.isUserInputEnabled = false
+        vb.newsList.setOnDragListener { v, event ->
+            if(event.action == DragEvent.ACTI   ON_DRAG_ENDED )
+            {
+                if(event.x >= requireActivity().window.decorView.width * .6)
+                    vb.newsList.setCurrentItem(min(vb.newsList.currentItem+1,newsListAdapter.itemCount),true)
+                else if(event.x <= requireActivity().window.decorView.width * .4){
+                    vb.newsList.setCurrentItem(max(vb.newsList.currentItem-1,1),true)
+                }
+            }
+            false
+        }
         newsListAdapter.withLoadStateFooter(NewsLoadStateAdapter(newsListAdapter))
 
         lifecycleScope.launch {
